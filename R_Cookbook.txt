@@ -1,0 +1,134 @@
+*******************************************************************
+*******************************************************************
+########################CHAPTER 1##################################
+
+###getting help on a function
+
+> help(functionname) ###display the documentation for the function
+## you can also do > ?functionname ## and get same result as above
+> args(functionname) ###quick reminder of the function arguments
+> example(functionname) ###see examples of using the function
+
+
+> help.search("pattern") ###search R documentation on your computer. "pattern" is a function name or keyword. 
+##you can also do ??pattern ##and get the same as above
+##if package is not loaded, it may fail to find the pattern or function
+
+###getting help on a package
+
+> help(package="tseries") ###this will display the information and details on the package
+> vignette(package="tseries") ###this will display the "vignettes" (tutorial, reference, etc) for the package. if you know name of vignette, then type:
+> vignette("vignettename")
+
+
+*******************************************************************
+*******************************************************************
+########################CHAPTER 2##################################
+
+> print(objectname) ##lets you print only an object at a time. matrix, list, etc.
+> cat ("object1", "object2", "\n") ## prints several objects, need to indicate end of line
+
+###setting and defining variables
+
+> x <- 3 ### setting x to 3 can be done in several different ways. This is ideal over all others.
+
+###listing variables
+
+> ls() ###lists (displays) the names of all objects in workspace
+> ls.str() ###displays more information about each variable, other than simply name
+
+> rm(x) ###removes variable x from workspace
+> rm(list=ls()) ### removes all variables from workspace (same as clear workspace in menu)
+
+###CREATING A VECTOR
+###vectors can contain either numbers, strings, or logical values, but not a mixture
+
+> c(1,1,2,4,5,5,5,8,9,10) ###creates a vector 
+> v1 <- c(1,2,3) ##defines object v1 as vector
+> c(v1, v2) ##creates a single vector from joining two previously defined vectors
+> mode(v1) ##prints the type of vector that is v1; good to know if vectors are compatible before joining them
+
+###BASIC STATS
+
+##functions mean and sd can be used in full dataframes, they are calculated per column.
+> mean(dataframeobject) ##this will return as many values as columns (after first column)
+
+###SELECTING VECTOR ELEMENTS	
+
+##if you have a vector as such:
+
+> fib <- c(0,1,1,2,4,8,10)
+## in order to print the first element only of the vector, you type:
+> fib[1]
+>fib[1:5] ##selects elements 1 through 5
+> fib[c(1,2,4,6)] ###picks the indicated elements in the vector to create a new one(excluding the others)
+> fib[-1] ###prints all elements except the first one
+> fib[-(1:3)] ###prints all elements except one through three
+
+###filtering the vectors
+> fib < 10 ##this vector is TRUE wherever fib is less than 10. Prints a string of TRUE/FALSE
+> fib[fib < 10] ###selects elements from vector that are less than 10. Prints those elements that are TRUE
+
+
+*******************************************************************
+*******************************************************************
+########################CHAPTER 3##################################
+
+
+> history() ##will display most recent command
+> history(100) ##will display the 100 most recent commands used
+> history(Inf) ##show entire saved history of commands
+
+> search() ##displays list of packages that are currently loaded
+
+> library(packagename) ##and also require(packagename) load packages needed
+> detach(package:packagename) ##unloads the specified package. must add package: before packagename for it to work.
+
+####ACCESSING BUILT-IN DATASETS
+
+> data(datasetname, package="packagename") ##loads built-in R dataset
+> help(datasetname) ##bring up help page for the dataset
+> summary(datasetname) ##gives info on dataset
+
+> data() ##bring up a list of all built-in datasets currently available
+> data(package="packagename") ##gives a list of available datasets per loaded package
+
+> source("myScript.R") ##reads and executes an R script
+> source("myScript.R", echo=TRUE) ##echoes script lines before they are executed
+
+
+*******************************************************************
+*******************************************************************
+########################CHAPTER 4##################################
+ 
+> sink("filename") ##begins writing output to a filename
+> sink() ##resume writing output to console instead of file
+
+
+###the following five lines of code is for writing outputs into different sections to a file by opening a connection (con) to a file and then writing the output repeatedly to the connection
+> con <- file("analysisReport.out", "w")
+> cat(data, file=con)
+> cat(results, file=con)
+> cat(conclusion, file=con)
+> close(con)
+
+> list.files() ##shows the contents of your current working directory
+> list.files(recursive=T) ##shows all the files in current working directory as well as subdirectories. Does not show hidden files.
+
+###TABULAR DATA FILES
+> dfrm <- read.table("filename") ##this will return the data frame, with each line containing a record, and within each record there are items separated by a one-character delimiter (comma, tab, space, colon)
+> dfrm <- read.table("filename", sep=":") ##if file uses a separator that is not the default, white space
+> class(dfrm$column1) ##this will tell you what format (string, factor, etc) is that column
+> dfrm <- read.table("filename", stringsAsFactor=FALSE) ##will prevent read.table from interpreting character strings as factors
+> dfrm <- read.table("filename", header=TRUE, stringsAsFactor=FALSE) ##allows you to read columns names into data frame matrix
+
+###CSV FILES
+###csv files are similar, but they assume that there is a header (compared to tabular that default is no header)
+###it also interprets your nonnumerical data as a factor (categorical variable) instead of a string
+> tbl <- read.csv("filename", header=FALSE) #if matrix has no header, otherwise it's the default
+
+
+
+
+
+
