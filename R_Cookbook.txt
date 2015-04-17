@@ -128,6 +128,148 @@
 > tbl <- read.csv("filename", header=FALSE) #if matrix has no header, otherwise it's the default
 
 
+*******************************************************************
+*******************************************************************
+########################CHAPTER 5##################################
+ 
+##vectors can be indexed by position
+> v[2] ##refers to the second element of vector v
+##vectors can be indexed in multiple positions creating a subvector
+> v[c(2,3)] ##subvector that consists of second and third elements of vector v
+
+##lists can be indexed by position
+> lst[[[2]] ##this refers to the second element of the list
+##lists can also be indexed to extract sublists
+> lst[c(2,3)]
+##list elements can have names and elements can be accessed through the name
+> lst[["Moe"]] ##and also:
+> lst$Moe ##refer to the element Moe in the list lst
+
+##because a dataframe is both a list and a rectangular data structure, you can use either list operators or matrix notations
+> dfrm[i] ##list operators
+> dfrm[[i]] ##list operators
+> dfrm$name ##list operators
+> dfrm[i,j] ##matrix notation
+> dfrm[i,] ##matrix notation
+> dfrm[,j] ##matrix notation
+
+##adding values and vectors to preexisting vectors
+> v <- c(1,2,3) ##create vector v
+> v <- c(v,4) ##append single item to vector v
+> w <- c(5,6,7,8) ##create vector w
+> v <- c(v,w) ##append the entire vector w to vector v, so that you now have 1:8 in vector v
+
+> append(1:10, 99, after=5) ##this adds the number 99 after position 5 in vector 1:10
+> append(1:10, 99, after=0) ##this adds the number 99 at position 0, or beginning of sequence 1:10
+
+> cbind(1:3) ##create a column vector of length three
+> cbind(1:6) ##create a column vector of length 6
+> cbind(1:6, 1:3) ##merges these two column vectors, but uses recycling rule to complete matrix as such:
+##matrix:
+1	1
+2	2	
+3	3
+4	1
+5	2
+6	3
+
+> lst[[n]] ##select nth element of list lst
+> lst[c(1,2,5)] ##select three elements, returns a sublist
+> lts[n] ##select nth LIST --> very different from accessing the single element as above
+####you can also access elements by name
+> lst[["name"]] ##selects the element called name
+> lst$name ##also selects element called name
+> lst[c("name1", "name2", name3")] ##returns sublist extracted from lst
+> lst["name"] ##will extract a list called "name", not an element!
+###to remove an element from a list, select it by position or by name, and then assign NULL to selected element
+> lst[["elementname"]] <- NULL ##eliminates that element from the list
+###if a list needs to be transformed into a vector, for example if need to perform computations:
+> mean(unlist(iq.scores)) ##this will "flatten" the list iq.scores to a vector so that the function "mean" can be performed
+
+###REMOVING LIST ELEMENTS USING A CONDITION
+######if you build a logical vector based on the condition you want, then you can use a vector to select list elements to assign NULL to 
+> lst[lst < 0] <- NULL ##removes all negative values from the list lst
+###if the condition is a function that cannot handel a list, then you need to flatten to a vector
+> lst[abs(unlist(lst)) < 1] <- NULL ##eliminates values whose absolute values (function abs) is less than 1
+> lst[lapply(lst,abs) < 1] <- NULL ##this also works but uses the lapply function to apply abs function to every element of the list
+
+###BASIC MATRIX OPERATIONS
+> t(A) ##matrix transposition of A
+> solve(A) ##matrix inverse of A
+> A %*% B ##matrix multiplication of A and B
+> diag(n) ##an n-by-n diagonal or identity matrix
+
+###ADDITIONAL MATRIX OPERATIONS
+#####adding names to a matrix 
+> colnames(matrixobjectName) <- c("A","B","C") ##assigns names A, B, and C to matrix columns
+> rownames(matrixObjectNAme) <- c("x","Y","Z") ##assigns names X, Y, Z, to matrix rows
+#####selecting one row or column from a Matrix
+> vec <- mat[1,] ##using normal indexing, you get a simple vector of only first row
+> vec <- mat[,3] ##using normal indexing, you get a simple vector of only third column
+> row <- mat[1,,drop=FALSE] ##result is a one-row matrix of first row
+> col <- mat[,3,drop=FALSE] ##result is a one-column matrix of column three
+
+####INITIALIZING A DATA FRAME
+#######if data is captured by several vectors or factors, and it's in column form, then:
+> dfrm <- data.frame(v1,v2,v3,v4,f1,f2) ##will generate a matrix with four vectors and two factors
+#######if data is captures by a list that contains vectors or factors, and it's in column form, then:
+> drfm <- as.data.frame(list.of.vectors) ##will generate a matrix from the list of vectors
+
+####SELECTING DATA FRAME COLUMNS BY POSITION OR NAME
+> dfrm[[n]] ##use the list operator to return a single column
+> dfrm[n] ##returns a data frame that only contains column "n" 
+> dfrm[c(1,2,5)] ##returns a data frame of columns 1,2, and 5
+> dfrm[,n] ##returns the nth column (assuming n contains only one value)
+> dfrm[,c(1,2,5)] ##returns a data frame built from columns 1,2, and 5
+> dfrm[["name]] ##returns the single column "name"
+> dfrm$name ##same as above
+#######to return one or more columns as a data frame:
+> dfrm["name"] ##returns data frame of single column
+> dfrm[c("name1","name2","name3")] ##returns data frame with those three selected columns
+> dfrm[,"name"] ##returns the named column
+> dfrm[,c("name1","name2","name3")] ##returns a data frame of those named columns
+
+####MAKING A SUBSET OF YOUR DATA FRAME
+#######for example, you want to select a subset of your data frame pending conditions:
+> subset(dfrm, select=c(predictor,response), subset=(response > 0) ##specifiying the dataset first, you want to make a subset of your data
+##frame where you only keep the "entries" where the response value is greater than zero, but keeping the specified predictor variable
+##associated to the data frame
+
+#####ADDING NEW NAMES TO COLUMNS IN A DATA FRAME
+> dfrm <- as.data.frame(lst) ##convert the "list" to a data frame
+> colnames(dfrm) <- c("A","B","C") ##add names A B C to the first three columns of data frame
+
+####Excluding a column by name
+> subset(dfrm, select = -badboy) ##subset results in data frame of all columns except badboy
+####Performing a correlation matrix while excluding a column by name (for example is column is ID, location, etc)
+> cor(subset(patient.data, select = -patient.id)) ##generates a correlation matrix of data frame patient.data while excluding the column patient.id
+> cor(subset(patient.data, select = c(-patient.id,-dosage)) ##generates corr matrix while excluding two columns specific in vector c
+
+####COMBINING DATA FRAMES
+> all.cols <- cbind(dfrm1,dfrm2) ##combines columns of two data frames side by side
+> all.rows <- rbind(dfrm1,dfrm2) ##stacks rows of two data frames top to bottom
+
+####SIMPLIFYING ACCESS TO DATA FRAME CONTENTS
+######instead of having to type in the data and name info into an equation to calculate z-scores:
+> z <- (suburbs$pop - mean(suburbs$pop)) / sd(suburbs$pop) ##calculates z-scores of dataframe "suburbs" for column "pop"
+######you can simplify the above expression by using the function "with"
+> z <- with(suburbs, (pop - mean(pop) / sd(pop)
+
+########you can also ATTACH a data frame so that the column names become variables you can easily access
+> attach(suburbs) ##makes all column names available as variables for dataset "suburbs"
+####WARNING: attach can be very tricky when editing the dataframe, so it's better to avoid
+
+
+*******************************************************************
+*******************************************************************
+########################CHAPTER 6##################################
+
+
+
+
+
+
+
 
 
 
