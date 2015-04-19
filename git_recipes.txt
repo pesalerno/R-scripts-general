@@ -1,0 +1,30 @@
+*******************************
+*******************************
+Github recipe book - PE Salerno
+*******************************
+*******************************
+
+
+*****************************
+#####1. Creating a new file on your computer, and publishing it on github######
+
+git init ##initialize connection between directory and online repository
+
+git clone https://github.com/pesalerno/R-scripts-general ##clone online repository for given project to local directory
+
+cp "filename" "foldername" ##copy the "new file" you want to add to your online repository into your local cloned directory
+
+mv "clonedfoldername" ##move to cloned folder name. 
+
+git add "filename" ##adds this new file so that git sees it
+
+git status ##should now show the newly added file
+
+git commit -m 'whatever you want to call this message' ##commits all changes that were shown in the "status", in this case only the new file
+
+git status ##show now say nothing to commit since new changes have already been "commited" and nothing has changed since
+
+git push origin master ##pushes your commit to the online repository and it's now published! hurray!
+
+**********************************
+

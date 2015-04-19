@@ -408,6 +408,38 @@
 ## fixed=TRUE argument at the end
 
 
+*******************************************************************
+*******************************************************************
+########################CHAPTER 8##################################
+#######################PROBABILITY#################################
+
+###generating a random sample
+> sample(dataframe$vector, 10) ##print 10 randomly picked samples from the vector specified
+###the function "Sample" does the sampling without replacement, but you can change settings
+###so that it's sampling with replacement, such as you would need for BOOTSTRAPPING:
+
+
+###BOOTSTRAPPING: this code repeatedly samples dataset x and calculates the sample median:
+> medians <- numeric(1000)
+> for (i in 1:1000) {
+> 	medians[i] <- median(sample(x, replace=TRUE))
+> 	}
+##from the bootstrap estimates, you can get the confidence interval for the median
+> ci <- quantile(medians, c(0.025, 0.975))
+> cat("95% confidence interval is (", ci, ")\n")
+[1] 95% confidence interval is ( 1.642021 1.70283 ) 
+
+
+###generating random sequences
+> sample(set, n, replace=TRUE) ##the function "sample" samples from the set pof possible values,
+###replace=TRUE lets you resample the values
+> sample(c("H","T"), 10, replace=TRUE ##will result in a random sequence of 10 simulated
+##coin flips
+
+
+
+
+
 
 
 
