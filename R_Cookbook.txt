@@ -1,6 +1,9 @@
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 1##################################
+#######GETTING STARTED AND GETTING HELP############################
+
+
 
 ###getting help on a function
 
@@ -10,27 +13,32 @@
 > example(functionname) ###see examples of using the function
 
 
-> help.search("pattern") ###search R documentation on your computer. "pattern" is a function name or keyword. 
+> help.search("pattern") ###search R documentation on your computer. "pattern" is a 
+##function name or keyword. 
 ##you can also do ??pattern ##and get the same as above
 ##if package is not loaded, it may fail to find the pattern or function
 
 ###getting help on a package
 
 > help(package="tseries") ###this will display the information and details on the package
-> vignette(package="tseries") ###this will display the "vignettes" (tutorial, reference, etc) for the package. if you know name of vignette, then type:
+> vignette(package="tseries") ###this will display the "vignettes" (tutorial, reference, 
+##etc) for the package. if you know name of vignette, then type:
 > vignette("vignettename")
 
 
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 2##################################
+##############SOME BASICS##########################################
+
 
 > print(objectname) ##lets you print only an object at a time. matrix, list, etc.
 > cat ("object1", "object2", "\n") ## prints several objects, need to indicate end of line
 
 ###setting and defining variables
 
-> x <- 3 ### setting x to 3 can be done in several different ways. This is ideal over all others.
+> x <- 3 ### setting x to 3 can be done in several different ways. This is ideal over all 
+##others.
 
 ###listing variables
 
@@ -46,7 +54,8 @@
 > c(1,1,2,4,5,5,5,8,9,10) ###creates a vector 
 > v1 <- c(1,2,3) ##defines object v1 as vector
 > c(v1, v2) ##creates a single vector from joining two previously defined vectors
-> mode(v1) ##prints the type of vector that is v1; good to know if vectors are compatible before joining them
+> mode(v1) ##prints the type of vector that is v1; good to know if vectors are compatible 
+##before joining them
 
 ###BASIC STATS
 
@@ -61,18 +70,21 @@
 ## in order to print the first element only of the vector, you type:
 > fib[1]
 >fib[1:5] ##selects elements 1 through 5
-> fib[c(1,2,4,6)] ###picks the indicated elements in the vector to create a new one(excluding the others)
+> fib[c(1,2,4,6)] ###picks the indicated elements in the vector to create a new one 
+##(excluding the others)
 > fib[-1] ###prints all elements except the first one
 > fib[-(1:3)] ###prints all elements except one through three
 
 ###filtering the vectors
 > fib < 10 ##this vector is TRUE wherever fib is less than 10. Prints a string of TRUE/FALSE
-> fib[fib < 10] ###selects elements from vector that are less than 10. Prints those elements that are TRUE
+> fib[fib < 10] ###selects elements from vector that are less than 10. Prints those 
+##elements that are TRUE
 
 
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 3##################################
+###########NAVIGATING THE SOFTWARE#################################
 
 
 > history() ##will display most recent command
@@ -82,7 +94,8 @@
 > search() ##displays list of packages that are currently loaded
 
 > library(packagename) ##and also require(packagename) load packages needed
-> detach(package:packagename) ##unloads the specified package. must add package: before packagename for it to work.
+> detach(package:packagename) ##unloads the specified package. must add package: before 
+##packagename for it to work.
 
 ####ACCESSING BUILT-IN DATASETS
 
@@ -100,12 +113,16 @@
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 4##################################
+#################INPUT AND OUTPUT##################################
+
  
 > sink("filename") ##begins writing output to a filename
 > sink() ##resume writing output to console instead of file
 
 
-###the following five lines of code is for writing outputs into different sections to a file by opening a connection (con) to a file and then writing the output repeatedly to the connection
+###the following five lines of code is for writing outputs into different sections to a 
+##file by opening a connection (con) to a file and then writing the output repeatedly to 
+##the connection
 > con <- file("analysisReport.out", "w")
 > cat(data, file=con)
 > cat(results, file=con)
@@ -113,24 +130,35 @@
 > close(con)
 
 > list.files() ##shows the contents of your current working directory
-> list.files(recursive=T) ##shows all the files in current working directory as well as subdirectories. Does not show hidden files.
+> list.files(recursive=T) ##shows all the files in current working directory as well as 
+##subdirectories. Does not show hidden files.
 
 ###TABULAR DATA FILES
-> dfrm <- read.table("filename") ##this will return the data frame, with each line containing a record, and within each record there are items separated by a one-character delimiter (comma, tab, space, colon)
-> dfrm <- read.table("filename", sep=":") ##if file uses a separator that is not the default, white space
+> dfrm <- read.table("filename") ##this will return the data frame, with each line 
+##containing a record, and within each record there are items separated by a one-character
+## delimiter (comma, tab, space, colon)
+> dfrm <- read.table("filename", sep=":") ##if file uses a separator that is not the 
+##default, white space
 > class(dfrm$column1) ##this will tell you what format (string, factor, etc) is that column
-> dfrm <- read.table("filename", stringsAsFactor=FALSE) ##will prevent read.table from interpreting character strings as factors
-> dfrm <- read.table("filename", header=TRUE, stringsAsFactor=FALSE) ##allows you to read columns names into data frame matrix
+> dfrm <- read.table("filename", stringsAsFactor=FALSE) ##will prevent read.table from 
+##interpreting character strings as factors
+> dfrm <- read.table("filename", header=TRUE, stringsAsFactor=FALSE) ##allows you to read 
+##columns names into data frame matrix
 
 ###CSV FILES
-###csv files are similar, but they assume that there is a header (compared to tabular that default is no header)
-###it also interprets your nonnumerical data as a factor (categorical variable) instead of a string
-> tbl <- read.csv("filename", header=FALSE) #if matrix has no header, otherwise it's the default
+###csv files are similar, but they assume that there is a header (compared to tabular that
+## default is no header)
+###it also interprets your nonnumerical data as a factor (categorical variable) instead 
+##of a string
+> tbl <- read.csv("filename", header=FALSE) #if matrix has no header, otherwise it's the 
+##default
 
 
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 5##################################
+############DATA STRUCTURES########################################
+
  
 ##vectors can be indexed by position
 > v[2] ##refers to the second element of vector v
@@ -145,7 +173,8 @@
 > lst[["Moe"]] ##and also:
 > lst$Moe ##refer to the element Moe in the list lst
 
-##because a dataframe is both a list and a rectangular data structure, you can use either list operators or matrix notations
+##because a dataframe is both a list and a rectangular data structure, you can use either 
+##list operators or matrix notations
 > dfrm[i] ##list operators
 > dfrm[[i]] ##list operators
 > dfrm$name ##list operators
@@ -157,14 +186,16 @@
 > v <- c(1,2,3) ##create vector v
 > v <- c(v,4) ##append single item to vector v
 > w <- c(5,6,7,8) ##create vector w
-> v <- c(v,w) ##append the entire vector w to vector v, so that you now have 1:8 in vector v
+> v <- c(v,w) ##append the entire vector w to vector v,so that you now have 1:8 in vector v
 
 > append(1:10, 99, after=5) ##this adds the number 99 after position 5 in vector 1:10
-> append(1:10, 99, after=0) ##this adds the number 99 at position 0, or beginning of sequence 1:10
+> append(1:10, 99, after=0) ##this adds the number 99 at position 0, or beginning of 
+##sequence 1:10
 
 > cbind(1:3) ##create a column vector of length three
 > cbind(1:6) ##create a column vector of length 6
-> cbind(1:6, 1:3) ##merges these two column vectors, but uses recycling rule to complete matrix as such:
+> cbind(1:6, 1:3) ##merges these two column vectors, but uses recycling rule to complete 
+##matrix as such:
 ##matrix:
 1	1
 2	2	
@@ -181,17 +212,24 @@
 > lst$name ##also selects element called name
 > lst[c("name1", "name2", name3")] ##returns sublist extracted from lst
 > lst["name"] ##will extract a list called "name", not an element!
-###to remove an element from a list, select it by position or by name, and then assign NULL to selected element
+###to remove an element from a list, select it by position or by name, and then assign 
+##NULL to selected element
 > lst[["elementname"]] <- NULL ##eliminates that element from the list
-###if a list needs to be transformed into a vector, for example if need to perform computations:
-> mean(unlist(iq.scores)) ##this will "flatten" the list iq.scores to a vector so that the function "mean" can be performed
+###if a list needs to be transformed into a vector, for example if need to perform 
+##computations:
+> mean(unlist(iq.scores)) ##this will "flatten" the list iq.scores to a vector so that the
+## function "mean" can be performed
 
 ###REMOVING LIST ELEMENTS USING A CONDITION
-######if you build a logical vector based on the condition you want, then you can use a vector to select list elements to assign NULL to 
+######if you build a logical vector based on the condition you want, then you can use a 
+##vector to select list elements to assign NULL to 
 > lst[lst < 0] <- NULL ##removes all negative values from the list lst
-###if the condition is a function that cannot handel a list, then you need to flatten to a vector
-> lst[abs(unlist(lst)) < 1] <- NULL ##eliminates values whose absolute values (function abs) is less than 1
-> lst[lapply(lst,abs) < 1] <- NULL ##this also works but uses the lapply function to apply abs function to every element of the list
+###if the condition is a function that cannot handel a list, then you need to flatten to 
+##a vector
+> lst[abs(unlist(lst)) < 1] <- NULL ##eliminates values whose absolute values (function 
+##abs) is less than 1
+> lst[lapply(lst,abs) < 1] <- NULL ##this also works but uses the lapply function to apply
+## abs function to every element of the list
 
 ###BASIC MATRIX OPERATIONS
 > t(A) ##matrix transposition of A
@@ -211,8 +249,10 @@
 
 ####INITIALIZING A DATA FRAME
 #######if data is captured by several vectors or factors, and it's in column form, then:
-> dfrm <- data.frame(v1,v2,v3,v4,f1,f2) ##will generate a matrix with four vectors and two factors
-#######if data is captures by a list that contains vectors or factors, and it's in column form, then:
+> dfrm <- data.frame(v1,v2,v3,v4,f1,f2) ##will generate a matrix with four vectors and two
+## factors
+#######if data is captures by a list that contains vectors or factors, and it's in column 
+##form, then:
 > drfm <- as.data.frame(list.of.vectors) ##will generate a matrix from the list of vectors
 
 ####SELECTING DATA FRAME COLUMNS BY POSITION OR NAME
@@ -231,9 +271,10 @@
 
 ####MAKING A SUBSET OF YOUR DATA FRAME
 #######for example, you want to select a subset of your data frame pending conditions:
-> subset(dfrm, select=c(predictor,response), subset=(response > 0) ##specifiying the dataset first, you want to make a subset of your data
-##frame where you only keep the "entries" where the response value is greater than zero, but keeping the specified predictor variable
-##associated to the data frame
+> subset(dfrm, select=c(predictor,response), subset=(response > 0) ##specifiying the 
+##dataset first, you want to make a subset of your dataframe where you only keep the 
+##"entries" where the response value is greater than zero, but keeping the specified 
+##predictor variable associated to the data frame
 
 #####ADDING NEW NAMES TO COLUMNS IN A DATA FRAME
 > dfrm <- as.data.frame(lst) ##convert the "list" to a data frame
@@ -241,9 +282,12 @@
 
 ####Excluding a column by name
 > subset(dfrm, select = -badboy) ##subset results in data frame of all columns except badboy
-####Performing a correlation matrix while excluding a column by name (for example is column is ID, location, etc)
-> cor(subset(patient.data, select = -patient.id)) ##generates a correlation matrix of data frame patient.data while excluding the column patient.id
-> cor(subset(patient.data, select = c(-patient.id,-dosage)) ##generates corr matrix while excluding two columns specific in vector c
+####Performing a correlation matrix while excluding a column by name (for example is 
+##column is ID, location, etc)
+> cor(subset(patient.data, select = -patient.id)) ##generates a correlation matrix of data
+## frame patient.data while excluding the column patient.id
+> cor(subset(patient.data, select = c(-patient.id,-dosage)) ##generates corr matrix while
+##excluding two columns specific in vector c
 
 ####COMBINING DATA FRAMES
 > all.cols <- cbind(dfrm1,dfrm2) ##combines columns of two data frames side by side
@@ -251,11 +295,13 @@
 
 ####SIMPLIFYING ACCESS TO DATA FRAME CONTENTS
 ######instead of having to type in the data and name info into an equation to calculate z-scores:
-> z <- (suburbs$pop - mean(suburbs$pop)) / sd(suburbs$pop) ##calculates z-scores of dataframe "suburbs" for column "pop"
+> z <- (suburbs$pop - mean(suburbs$pop)) / sd(suburbs$pop) ##calculates z-scores of 
+##dataframe "suburbs" for column "pop"
 ######you can simplify the above expression by using the function "with"
 > z <- with(suburbs, (pop - mean(pop) / sd(pop)
 
-########you can also ATTACH a data frame so that the column names become variables you can easily access
+########you can also ATTACH a data frame so that the column names become variables you can
+## easily access
 > attach(suburbs) ##makes all column names available as variables for dataset "suburbs"
 ####WARNING: attach can be very tricky when editing the dataframe, so it's better to avoid
 
@@ -263,7 +309,103 @@
 *******************************************************************
 *******************************************************************
 ########################CHAPTER 6##################################
+############DATA TRANSFORMATIONS###################################
 
+####splitting a vector into groups
+> library(MASS) ##load required library
+> split(dataset$vector, dataset$factor ###this splits the vector into groups according to 
+##the factor
+###now you can analyze the above dataset by groups
+###you can also do this using unstack function:
+> unstack(dataset(vector, factor))
+
+###APPLYING A FUNCTION TO EACH LIST ELEMENT
+> lst <- lapply(lst, function) ##calls the function and applies it to all elements in the 
+##list, returns a list
+> lst <- sapply(lst, function) ##calls the function and applies it ot all elements in the 
+##list, returns a vector
+
+####APPLYING A FUNCTION TO EVERY ROW OF A MATRIX
+> results <- apply(matrix, 1, function) ##this will call the function for each row, 
+##assemble values into a vector, and returns vector into "results"
+#####you have to set the second argument to 1 to indicate row-by-row application of function
+
+
+####APPLYING A FUNCTION TO EVERY COLUMN OF A MATRIX
+> results <- apply(matrix, 2, function) ##calls function to each column, use 2 for second
+##argument to indicate column-by-column operations
+
+ 
+####APPLYING A FUNCTION TO EVERY COLUMN OF A DAATA FRAME
+> lst <- lapply(dfrm, function) ##applies function to columns of data frame, returns list
+> vec <- sapply(dfrm, function) ##applies function to columns of data frame, returns vector
+
+###above recipe is very useful for checking types of columns in data frames:
+> sapply(dataframe, class) ##the function is "class" which returns the class of each column
+##example: factor, vector, etc
+
+###EXAMPLE: REMOVE LOW-CORRELATION VARIABLES FROM A SET OF PREDICTORS
+###first, calculate correlation between each variable and response
+> cors <- sapply(pred, cor, y=resp) 
+###sapply will call the function "cor" for every column in "pred"; third argument is 
+##response variable
+####second, we use the "rank" function to find the positions of the correlations that have
+##the largest magnitude
+> mask <- (rank(-abs(cor)) <= 10) ##this returns a vector of logical values, top 10 correlations
+##will have TRUE values and al others are FALSE
+####third, we can select only those TRUE columns using that vector of logical values
+> best.pred <- pred[,mask]
+##then, you can regress response against best.pred
+> lm(resp ~ best.pred)
+
+####APPLYING A FUNCTION TO GROUPS OF DATA
+#####for example, if you want ot analyze groups separately for certain variables/calculations
+> tapply(vector, groupsfactor, function) ##this function will extract each group, apply the 
+###function to each group, and return a vector with the collected results
+##so for example, you can calculate average by groups:
+> tapply(pop, county, mean) ##executes the function "mean" per each group defined in "county" 
+##with the data in vector "pop"
+
+
+####APPLYING A FUNCTION TO GROUPS OF ROWS
+> by(trials, trials$sex, summary) ##this will compute the function "summary" for the two groups
+##men and women, returning two separate summaries for each group
+
+
+*******************************************************************
+*******************************************************************
+########################CHAPTER 7##################################
+############STRINGS AND DATES######################################
+
+
+####getting the length of a string
+> nchar("string") ##returns number of characters in specified string
+> s <- nchar(c("string1","String2","string3")) ##returns the length of each string in vector
+###merging strings
+> paste("everybody","loves","stats") ##returns a new string by joining these strings end to end
+##default separator is space, but can change default:
+> paste("everybody","loves","stats", sep="-") ##will result in:
+[1] "everybody-loves-stats
+###extracting subtrings from a string
+> subtr("statistics", 1, 4) ##extracts first four characters and returns "stat"
+
+
+###in this following code, we extract the last two characters from each string; each substring
+##starts on the penultimate character and ends on las character:
+> cities <- c("New York, NY", "Los Angeles, CA", Peoria, IL") ##create vector of strings
+> substr(cities, nchar(cities)-1, nchar(cities)) 
+
+###REPLACING SUBSTRINGS
+> s <- "Curly is the smart one. Curly is funny, too."
+> sub("Curly", "Moe", s) ##the "Sub" function finds the first instance of the old substring 
+##in this case, Curly, and replaces with new substring, Moe:
+[1] "Moe is the smart one. Moe is funny, too."
+> gsub("Curly", "Moe", s) ##does a global replace of the substring, not only first instance
+> sub("Curly is the smart one.", "", s) ###to delete a substring replace with ""
+[1] "Curly is funny, too."
+###these commands can be made much more complex by using regular expressions. The default
+##is regex, so if you want the string to be interpreted as regular expression, add:
+## fixed=TRUE argument at the end
 
 
 
